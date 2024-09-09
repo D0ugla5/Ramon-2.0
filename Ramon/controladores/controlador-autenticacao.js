@@ -1,6 +1,7 @@
 
 const db = require('../db.json')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const login = async (req, res) =>{
     try{
@@ -20,9 +21,23 @@ const login = async (req, res) =>{
         }
 
         const senhaValida = bcrypt.compareSync(senha, cliente.senha)
+        
+        if(!senhaValida){
+            res.send({erro:'a senha é invalida'})
+        }
 
+        const token = jwt.sign(
+        {
+            nome: cliente.nome,
+            email: cliente.email,
+            _id: cliente.id
+        },
+        'jwt_secret_key',
+        {expiresIn: 1000*60*60*24*365}
+        )
+        conssole.log(token)
 
-        res.send({massage:'Vasco'})
+        res.cookie("TokenAulBe", token).send({massage:"Ok"})
     }catch(e){
         console.log(e)
     }
