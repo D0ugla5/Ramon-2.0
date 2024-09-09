@@ -1,14 +1,14 @@
-//Bcrypto
 const db = require('../db.json')
 const { v4: uuidv4 } = require('uuid')
 const fs = require('fs')
-const bcryptjs = require('bcryptjs')
+const { log } = require('console')
+const bcrypt = require('bcryptjs')
 
 const listClientes = async (req,res) => {
     var clientes = db.clientes
     res.json(clientes)
 }
-const getCliente = async (req, res) => {
+const getClientes = async (req, res) => {
     const _id = req.params.id
     const lista_clientes = db.clientes
     const cliente = lista_clientes.find(
@@ -16,14 +16,14 @@ const getCliente = async (req, res) => {
         )
     cliente ? res.send(cliente) : res.status(404).send({error:'not found'})
 }
-const createCliente = async (req,res) => {
+const createClientes = async (req,res) => {
     const dados = req.body
-    if(!dados.nome || !dados.email||!dados.senha) {
-        res.status(406).send({error:'Nome, email e senha são necessários'})
+    if(!dados.email || !dados.senha || !dados.nome) {
+        return res.status(406).send({error:'Nome, email ou senha não foi informado. Porfavor revise!'})
     }
     const _id = uuidv4()
-    const senhaCripto = await bcryptjs.hashSync(dados.senha, 10)
-    dados.senha = senhaCripto
+    const senhaCriptografada = await bcrypt.hashSync(dados.senha, 10)
+    dados.senha = senhaCriptografada
     dados.id = _id
     db.clientes.push(dados)
     fs.writeFile('./db.json', JSON.stringify(db), (err) => {
@@ -31,47 +31,50 @@ const createCliente = async (req,res) => {
             res.status(500).send({error:'erro no servidor'})
         }
     })
-    res.json(dados)
+    res.status(204).send()
 }
-const updateCliente = async (req,res) => {
+const updateClientes = async (req, res) => {
     const _id = req.params.id
     const dados = req.body
     const lista_clientes = db.clientes
-    const Cliente = lista_clientes.find(
+    const cliente = lista_clientes.find(
         (cliente) => cliente.id == _id
-        )
-    if (!cliente || !dados) {
-        res.status(404).send({error:'not found'})
+    )
+    if (!cliente) {
+        return res.status(404).send({ error: 'Cliente não encontrado' })
     }
-    
-    for (const dado in dados){
-        if(!(dado in cliente)){
-            console.log('erro: este dado não existe');
-            continue
+
+    for (const dado in dados) {
+        if (dado in cliente) {
+            cliente[dado] = dados[dado]
+        } else {
+            console.log(`Aviso: o dado "${dado}" não existe no cliente`)
         }
-        cliente[dado] = dados[dados]
-
     }
-
-}
-const deleteCliente = async (req,res) => {
-    const _id = req.params.id;
-    let lista_clientes = db.clientes;
-    const clienteIndex = lista_clientes.findIndex((cliente) => cliente.id == _id);
-
-    if (clienteIndex === -1) {
-        return res.status(404).send({ error: 'não encontrado' });
-    }
-
-    lista_clientes.splice(clienteIndex, 1);
 
     fs.writeFile('./db.json', JSON.stringify(db), (err) => {
         if (err) {
-            return res.status(500).send({ error: 'Erro no servidor' });
+            return res.status(500).send({ error: 'Erro no servidor' })
         }
-    });
 
-    res.status(204).send();
+        res.status(200).send({ message: 'Cliente atualizado com sucesso!' })
+    })
+}
+const deleteClientes = async (req,res) => {
+    const _id = req.params.id
+    const lista_clientes = db.clientes
+    const cliente = lista_clientes.find(
+        (cliente) => cliente.id == _id
+        )
+
+    var idx = lista_clientes.indexOf(cliente)
+        lista_clientes.splice(idx, 1)
+    fs.writeFile('./db.json', JSON.stringify(db), (err) => {
+        if (err){
+            res.status(500).send({error:'erro no servidor'})
+        }
+    })
+    res.status(204).send()
 }
 
-module.exports = {listClientes, getCliente, createCliente, updateCliente, deleteCliente}
+module.exports = {listClientes, getClientes, createClientes, updateClientes, deleteClientes}

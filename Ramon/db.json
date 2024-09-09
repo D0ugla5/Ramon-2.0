@@ -1,13 +1,6 @@
 {
     "produtos": [
         {
-            "id": 1,
-            "nome": "Smartphone",
-            "descricao": "Smartphone de última geração",
-            "preco": 1500,
-            "imagem": "smartphone.jpg"
-        },
-        {
             "id": 2,
             "nome": "Camiseta",
             "descricao": "Camiseta de algodão",
@@ -22,6 +15,56 @@
             "preco": 50,
             "categoria_id": 3,
             "imagem": "vaso_flores.jpg"
+        },
+        {
+            "nome": "Smartphone",
+            "descricao": "Smartphone de última geração",
+            "preco": 1500,
+            "imagem": "smartphone.jpg",
+            "id": "7ab5649a-e0c2-43e8-a045-7a34a9025be2"
+        },
+        {
+            "nome": "Jão Vitor",
+            "id": "fa385673-d5f9-4f34-9551-b9f1882d4e14"
+        },
+        {
+            "nome": "Smartphone",
+            "descricao": "Smartphone de última geração",
+            "preco": 1500,
+            "imagem": "smartphone.jpg",
+            "id": "6db96810-9b67-4b0c-bc77-9ec8d8ac6fe0"
+        },
+        {
+            "nome": "Jão Vitor",
+            "id": "d6694e0c-91ed-4bc9-871e-a4231524ca65"
+        },
+        {
+            "nome": "Smartphone",
+            "descricao": "Smartphone de última geração",
+            "preco": 1500,
+            "imagem": "smartphone.jpg",
+            "id": "b66c9368-7ecb-421c-a459-f8f4474a04be"
+        },
+        {
+            "nome": "Smartphone",
+            "descricao": "Smartphone de última geração",
+            "preco": 1500,
+            "imagem": "smartphone.jpg",
+            "id": "37e23006-147a-47fb-930b-605bcbd8bced"
+        },
+        {
+            "nome": "Smartphone",
+            "descricao": "Smartphone de última geração",
+            "preco": 1500,
+            "imagem": "smartphone.jpg",
+            "id": "e7dd6d86-1383-452f-8023-bb8b1d62ceab"
+        },
+        {
+            "nome": "Celular",
+            "descricao": "Celular 4k brabissimo",
+            "preco": 4500,
+            "imagem": "celular.jpg",
+            "id": "3ac518e1-36b0-459a-9f4a-e992217f7a0f"
         }
     ],
     "clientes": [
@@ -54,7 +97,7 @@
             }
         },
         {
-            "nome": "Vasco",
+            "nome": "alisson update",
             "email": "Vasco@example.com",
             "senha": "$2a$10$evGbIHQkixL2Ej3X0cTeP.PGrwGLLVwvhvamUM7lerUM.sOdPqGf6",
             "endereco": {
@@ -66,6 +109,24 @@
                 "cep": "01234-567"
             },
             "id": "7aad1546-f75e-4d02-940c-f3518bcc3895"
+        },
+        {
+            "nome": "João Vitor",
+            "email": "joaovitor@texte.com",
+            "senha": "$2a$10$R4XEHEdQ8do/EG8PdPt6r.5Oq6/9ysn2I9l83Adg0pVPx8IWd17Fm",
+            "id": "a4c05346-bc9e-47fa-a4ce-93b90d6bf0f7"
+        },
+        {
+            "nome": "alisson update",
+            "email": "joaovitor@texte.com",
+            "senha": "$2a$10$UG22ZjtBmYWtcm62zpbVEOHJvHYMZFU1d0dJ.T/AqdheYNRRX.iZ2",
+            "id": "52a19dbe-ad49-4933-8141-a35c04b295cc"
+        },
+        {
+            "nome": "jorel",
+            "email": "jorel@example.com",
+            "senha": "$2a$10$P7dvHxFfs9LZiuj81ix0F.Svt/mUlPFnus.YwJRN9PFDZoSmw3p8O",
+            "id": "c46145d6-0017-4398-91c6-7c6ae799db2f"
         }
     ],
     "pedidos": [
