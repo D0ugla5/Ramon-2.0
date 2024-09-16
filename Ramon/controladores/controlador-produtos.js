@@ -5,6 +5,7 @@ const { log } = require('console')
 
 
 const listProdutos = async (req,res) => {
+    console.log(req.cookies)
     var produtos = db.produtos
     res.json(produtos)
 }

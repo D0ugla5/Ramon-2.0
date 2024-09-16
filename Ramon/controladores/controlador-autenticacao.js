@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const login = async (req, res) =>{
     try{
         const {email, senha} = req.body;
-        const lista_clientes = db.cliente    
+        const lista_clientes = db.clientes    
 
         if (!email || !senha){
             res.send({erro:'email ou senha não enviado'})
@@ -32,15 +32,20 @@ const login = async (req, res) =>{
             email: cliente.email,
             _id: cliente.id
         },
-        'jwt_secret_key',
+        process.env.chave_criptografia,
         {expiresIn: 1000*60*60*24*365}
         )
-        conssole.log(token)
+        console.log(token)
 
-        res.cookie("TokenAulBe", token).send({massage:"Ok"})
+        res.cookie("TokenAulaBE", token).send({massage:"Ok"})
     }catch(e){
         console.log(e)
     }
 }
 
-module.exports = {login}
+const logout = async (req,res) => {
+    res.cookie("TokenAulaBE", "none", expiresIn=5)
+    res.send({massage:'Logout feito'})
+}
+
+module.exports = {login, logout}
