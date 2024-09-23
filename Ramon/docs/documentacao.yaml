@@ -1,0 +1,194 @@
+openapi: 3.0.3
+
+info:
+  title: API Red Clientes Dead Produtos Redemption
+  description: Uma API para gerenciar produtos e clientes com autenticação.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8721
+paths:
+  /produtos:
+    get:
+      summary: Obter a lista de produtos
+      responses:
+        '200':
+          description: Lista de produtos retornada com sucesso
+    post:
+      summary: Criar um novo produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+              required:
+                - nome
+                - preco
+      responses:
+        '200':
+          description: Produto criado com sucesso
+
+  /produtos/{id}:
+    get:
+      summary: Obter informações de um produto pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do produto
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Informações do produto retornadas com sucesso
+          
+    put:
+      summary: Atualizar um produto existente
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do produto a ser atualizado
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+      responses:
+        '200':
+          description: Produto atualizado com sucesso
+
+    delete:
+      summary: Deletar um produto pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do produto a ser deletado
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Produto deletado com sucesso
+
+  /clientes:
+    get:
+      summary: Obter a lista de clientes
+      responses:
+        '200':
+          description: Lista de clientes retornada com sucesso
+    post:
+      summary: Criar um novo cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                senha:
+                  type: string
+              required:
+                - nome
+                - email
+                - senha
+      responses:
+        '204':
+          description: Cliente criado com sucesso
+
+  /clientes/{id}:
+    get:
+      summary: Obter informações de um cliente pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do cliente
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Informações do cliente retornadas com sucesso
+          
+    put:
+      summary: Atualizar um cliente existente
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do cliente a ser atualizado
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+              required:
+                - nome
+      responses:
+        '204':
+          description: Cliente atualizado com sucesso
+
+    delete:
+      summary: Deletar um cliente pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do cliente vai ser deletado
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Cliente deletado com sucesso
+
+  /auth/login:
+    post:
+      summary: Realizar login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                senha:
+                  type: string
+              required:
+                - email
+                - senha
+      responses:
+        '200':
+          description: Login realizado com sucesso
+        '401':
+          description: Credenciais inválidas
